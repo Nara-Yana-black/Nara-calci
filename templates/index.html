@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        /* Reset some default browser styles */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            /* For proper footer alignment */
+        }
+        
+        .calculator {
+            background: #ffffff;
+            color: #333333;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            margin-bottom: 20px;
+            /* Add some space between the calculator and footer */
+        }
+        
+        h1 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #4a4a4a;
+        }
+        
+        input,
+        select,
+        button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        input:focus,
+        select:focus,
+        button:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+        }
+        
+        button {
+            background: #667eea;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #764ba2;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 18px;
+            color: #2d6a4f;
+            border: 1px solid #d1e7dd;
+            background-color: #d1e7dd;
+            border-radius: 8px;
+        }
+        
+        footer {
+            font-size: 14px;
+            color: #ffffff;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function updateSecondInput() {
+            const operation = document.querySelector('select[name="operation"]').value;
+            const secondInput = document.querySelector('input[name="num2"]');
+
+            // Disable second input for specific operations
+            if (operation === "factorial" || operation === "fraction_to_decimal" || operation === "decimal_to_fraction") {
+                secondInput.value = ""; // Clear any existing value
+                secondInput.disabled = true; // Disable the field
+            } else {
+                secondInput.disabled = false; // Enable the field for other operations
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="calculator">
+        <h1>Simple Calculator</h1>
+        <form method="POST">
+            <!-- Input fields -->
+            <input type="text" name="num1" placeholder="Enter first number" required>
+            <input type="text" name="num2" placeholder="Enter second number (optional)">
+
+            <!-- Operation selection -->
+            <select name="operation" required onchange="updateSecondInput()">
+                <option value="add">Add</option>
+                <option value="subtract">Subtract</option>
+                <option value="multiply">Multiply</option>
+                <option value="divide">Divide</option>
+                <option value="power">Power</option>
+                <option value="factorial">Factorial (Enter only 1 number)</option>
+                <option value="fraction_to_decimal">Fraction to Decimal</option>
+                <option value="decimal_to_fraction">Decimal to Fraction</option>
+                <option value="percentage">Percentage</option>
+            </select>
+
+            <!-- Submit button -->
+            <button type="submit">Calculate</button>
+        </form>
+
+        <!-- Result display -->
+        {% if result is not none %}
+        <div class="result">
+            <strong>Result:</strong> {{ result }}
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        Created by Nara...
+    </footer>
+</body>
+
+</html>
